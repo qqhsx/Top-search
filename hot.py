@@ -90,7 +90,9 @@ xs = """
     <h1>热搜排行榜</h1>
     <br />
     <span>更新时间: <br /><span id="time"></span></span>
-    <br />""" + cards_html + """
+    <br />
+    <a href="./index.html">返回首页</a> <!-- 返回首页链接 -->
+    """ + cards_html + """
 </body>
 
 <footer>
