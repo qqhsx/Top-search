@@ -111,7 +111,7 @@ xs = """
     <span>更新时间: <br /><span id="time"></span></span>
     <br />
     <div class="return-home">
-        <a href="https://qqhsx.github.io/Top-search/">返回首页</a> <!-- 修改首页链接地址 -->
+        <a href="https://qqhsx.github.io/">返回首页</a> <!-- 修改首页链接地址 -->
     </div>
     """ + cards_html + """
 </body>
