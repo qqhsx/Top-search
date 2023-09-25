@@ -54,7 +54,7 @@ def generate_cards(data):
             <div class="card">
                 <h2>{item[0]}</h2>
                 <p>热度: {item[1]}</p>
-                <p>{item[2]}</p>
+                <p>{item[3]}</p> <!-- 添加详细描述 -->
             </div>
         """
         cards += card
