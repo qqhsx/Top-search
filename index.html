@@ -5,44 +5,21 @@
 <head>
     <title>热搜榜</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .card {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 16px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         }
 
-        .bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
+        h2 {
+            font-size: 24px;
+            margin: 0;
         }
 
-        .label {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .bar-inner {
-            background-color: #007BFF;
-            height: 20px;
-        }
-
-        .hotness {
-            font-size: 14px;
-        }
-
-        .description {
-            font-size: 12px;
-            color: #666;
+        p {
+            font-size: 16px;
+            margin: 8px 0;
         }
     </style>
 </head>
@@ -51,232 +28,14 @@
     <h1>热搜排行榜</h1>
     <br />
     <span>更新时间: <br /><span id="time"></span></span>
-    <br />
-    <div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=习近平出席这些活动传递丰富信息">习近平出席这些活动传递丰富信息</a></div>
-                <div class="bar-inner" style="width: 10px;"></div>
-                <div class="hotness">1</div>
-                <div class="description">4920702</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=18岁小将10米气步枪破世界纪录夺金">18岁小将10米气步枪破世界纪录夺金</a></div>
-                <div class="bar-inner" style="width: 20px;"></div>
-                <div class="hotness">2</div>
-                <div class="description">4901441</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=俄黑海舰队总部大楼被炸伤亡成谜">俄黑海舰队总部大楼被炸伤亡成谜</a></div>
-                <div class="bar-inner" style="width: 30px;"></div>
-                <div class="hotness">3</div>
-                <div class="description">4893271</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=亚洲风采 交相辉映">亚洲风采 交相辉映</a></div>
-                <div class="bar-inner" style="width: 40px;"></div>
-                <div class="hotness">4</div>
-                <div class="description">4773077</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=家长花50万为自闭症儿子经络重构">家长花50万为自闭症儿子经络重构</a></div>
-                <div class="bar-inner" style="width: 50px;"></div>
-                <div class="hotness">5</div>
-                <div class="description">4602444</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=承办方回应女子马拉松冲刺突发痉挛">承办方回应女子马拉松冲刺突发痉挛</a></div>
-                <div class="bar-inner" style="width: 60px;"></div>
-                <div class="hotness">6</div>
-                <div class="description">4543851</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=4人控制61个账户买入14亿亏近150万">4人控制61个账户买入14亿亏近150万</a></div>
-                <div class="bar-inner" style="width: 70px;"></div>
-                <div class="hotness">7</div>
-                <div class="description">4481219</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=奇趣美食节">奇趣美食节</a></div>
-                <div class="bar-inner" style="width: 80px;"></div>
-                <div class="hotness">8</div>
-                <div class="description">4387736</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=警方辟谣江西一小区发生分尸案">警方辟谣江西一小区发生分尸案</a></div>
-                <div class="bar-inner" style="width: 90px;"></div>
-                <div class="hotness">9</div>
-                <div class="description">4286367</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=胡兵跑着跟谷爱凌合影">胡兵跑着跟谷爱凌合影</a></div>
-                <div class="bar-inner" style="width: 100px;"></div>
-                <div class="hotness">10</div>
-                <div class="description">4172760</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=朝鲜女足7:0大胜新加坡队">朝鲜女足7:0大胜新加坡队</a></div>
-                <div class="bar-inner" style="width: 110px;"></div>
-                <div class="hotness">11</div>
-                <div class="description">4098582</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=上半年A股股民人均盈利3.91万元">上半年A股股民人均盈利3.91万元</a></div>
-                <div class="bar-inner" style="width: 120px;"></div>
-                <div class="hotness">12</div>
-                <div class="description">3914713</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=孩子扎堆玩“萝卜刀”引担忧">孩子扎堆玩“萝卜刀”引担忧</a></div>
-                <div class="bar-inner" style="width: 130px;"></div>
-                <div class="hotness">13</div>
-                <div class="description">3890286</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=《再见爱人》情感导师被曝性侵">《再见爱人》情感导师被曝性侵</a></div>
-                <div class="bar-inner" style="width: 140px;"></div>
-                <div class="hotness">14</div>
-                <div class="description">3752899</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=韩媒：李在明正全力恢复状态">韩媒：李在明正全力恢复状态</a></div>
-                <div class="bar-inner" style="width: 150px;"></div>
-                <div class="hotness">15</div>
-                <div class="description">3655252</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=男孩河床边玩耍发现恐龙脚印">男孩河床边玩耍发现恐龙脚印</a></div>
-                <div class="bar-inner" style="width: 160px;"></div>
-                <div class="hotness">16</div>
-                <div class="description">3586444</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=媒体:儿童性侵犯不应模糊成极端欺辱">媒体:儿童性侵犯不应模糊成极端欺辱</a></div>
-                <div class="bar-inner" style="width: 170px;"></div>
-                <div class="hotness">17</div>
-                <div class="description">3432966</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=宁泽涛 第一个游进48秒的亚洲人">宁泽涛 第一个游进48秒的亚洲人</a></div>
-                <div class="bar-inner" style="width: 180px;"></div>
-                <div class="hotness">18</div>
-                <div class="description">3342450</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=北京一火锅店销毁2吨临期羊蝎子">北京一火锅店销毁2吨临期羊蝎子</a></div>
-                <div class="bar-inner" style="width: 190px;"></div>
-                <div class="hotness">19</div>
-                <div class="description">3236446</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=学而思擅自开展学科类培训被罚">学而思擅自开展学科类培训被罚</a></div>
-                <div class="bar-inner" style="width: 200px;"></div>
-                <div class="hotness">20</div>
-                <div class="description">3171255</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=日媒：日本男乒以“屈辱比分”出局">日媒：日本男乒以“屈辱比分”出局</a></div>
-                <div class="bar-inner" style="width: 210px;"></div>
-                <div class="hotness">21</div>
-                <div class="description">3092218</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=法媒：机器人“接管”杭州亚运会">法媒：机器人“接管”杭州亚运会</a></div>
-                <div class="bar-inner" style="width: 220px;"></div>
-                <div class="hotness">22</div>
-                <div class="description">2998288</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=汪顺：说我不行的人这个成绩还行吗">汪顺：说我不行的人这个成绩还行吗</a></div>
-                <div class="bar-inner" style="width: 230px;"></div>
-                <div class="hotness">23</div>
-                <div class="description">2835534</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=韩国选手打对手脸被罚出场 细节披露">韩国选手打对手脸被罚出场 细节披露</a></div>
-                <div class="bar-inner" style="width: 240px;"></div>
-                <div class="hotness">24</div>
-                <div class="description">2774527</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=女生花7000元看周杰伦演唱会忘带票">女生花7000元看周杰伦演唱会忘带票</a></div>
-                <div class="bar-inner" style="width: 250px;"></div>
-                <div class="hotness">25</div>
-                <div class="description">2602376</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=科比女儿正式走秀">科比女儿正式走秀</a></div>
-                <div class="bar-inner" style="width: 260px;"></div>
-                <div class="hotness">26</div>
-                <div class="description">2526468</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=外国运动员逛市场开口就对半砍价">外国运动员逛市场开口就对半砍价</a></div>
-                <div class="bar-inner" style="width: 270px;"></div>
-                <div class="hotness">27</div>
-                <div class="description">2461813</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=事关千万人 存量房贷今起下调">事关千万人 存量房贷今起下调</a></div>
-                <div class="bar-inner" style="width: 280px;"></div>
-                <div class="hotness">28</div>
-                <div class="description">2365719</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=韩红在演唱会亲了林俊杰脸颊">韩红在演唱会亲了林俊杰脸颊</a></div>
-                <div class="bar-inner" style="width: 290px;"></div>
-                <div class="hotness">29</div>
-                <div class="description">2200335</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=刘学州被网暴致死案今天开庭">刘学州被网暴致死案今天开庭</a></div>
-                <div class="bar-inner" style="width: 300px;"></div>
-                <div class="hotness">30</div>
-                <div class="description">2136312</div>  <!-- 添加详细描述 -->
-            </div>
-        
-            <div class="bar">
-                <div class="label"><a href="https://cn.bing.com/search?q=伊朗男乒有位球员只能打反手球">伊朗男乒有位球员只能打反手球</a></div>
-                <div class="bar-inner" style="width: 310px;"></div>
-                <div class="hotness">31</div>
-                <div class="description">2015591</div>  <!-- 添加详细描述 -->
-            </div>
-        
-    </div>
+    <br /><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=习近平出席这些活动传递丰富信息">习近平出席这些活动传递丰富信息</a></h2><p>热点：1</p><p>热度：4976810</p><p>详细描述：从习近平主席在杭州亚运会隆重开幕日会见和致辞时的重要讲话，到别具特色的欢迎宴会、精彩纷呈的开幕式，都传递了丰富的信息。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=18岁小将10米气步枪破世界纪录夺金">18岁小将10米气步枪破世界纪录夺金</a></h2><p>热点：2</p><p>热度：4992629</p><p>详细描述：9月25日，杭州第19届亚运会射击男子10米气步枪决赛，中国选手盛李豪以总成绩253.3环打破了世界纪录，夺得金牌。
+</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=俄黑海舰队总部大楼被炸伤亡成谜">俄黑海舰队总部大楼被炸伤亡成谜</a></h2><p>热点：3</p><p>热度：4831990</p><p>详细描述：乌军22日对俄黑海舰队司令部大楼实施导弹打击。目前，针对该大楼袭击造成人员伤亡情况成谜。乌国防部情报总局宣称，打击造成数十名俄军高级军官伤亡。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=亚洲风采 交相辉映">亚洲风采 交相辉映</a></h2><p>热点：4</p><p>热度：4758057</p><p>详细描述：杭州亚运上，亚洲雄风劲吹，展现了同呼吸、同感受、同梦想的亚洲风采。杭州亚运会的报名规模和项目数量均创历史新高，不同的传统和文化也在这里交汇。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=家长花50万为自闭症儿子经络重构">家长花50万为自闭症儿子经络重构</a></h2><p>热点：5</p><p>热度：4656974</p><p>详细描述：近日，常熟市的王先生求助称：自己可能遭遇了骗局。两年前，王先生3岁的儿子被确诊为自闭症。其后花费50万在网络机构为儿子治疗，最后发现被骗。
+</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=胡兵跑着跟谷爱凌合影">胡兵跑着跟谷爱凌合影</a></h2><p>热点：6</p><p>热度：4566693</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=华为秋季全场景新品发布会">华为秋季全场景新品发布会</a></h2><p>热点：7</p><p>热度：4456342</p><p>详细描述：9月25日14：30，华为将举行秋季全场景新品发布会，华为FreeBuds Pro 3、华为WATCH GT4等新品重磅来袭。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=奇趣美食节">奇趣美食节</a></h2><p>热点：8</p><p>热度：4360375</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=警方辟谣江西一小区发生分尸案">警方辟谣江西一小区发生分尸案</a></h2><p>热点：9</p><p>热度：4252242</p><p>详细描述：9月24日，网传江西九江某小区发生“分尸”案件，引发关注。对此，派出所回应称，相关网传信息不属实，涉事小区未发生凶杀案，该小区系有人员坠楼。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=4人控制61个账户买入14亿亏近150万">4人控制61个账户买入14亿亏近150万</a></h2><p>热点：10</p><p>热度：4146643</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=《再见爱人》情感导师被曝性侵">《再见爱人》情感导师被曝性侵</a></h2><p>热点：11</p><p>热度：4027515</p><p>详细描述：近日，《再见爱人》情感导师李松蔚被曝性侵。有网友发长文称，2014到2018年期间被李松蔚多次性侵、精神虐待，长达四年的心理控制、恐吓、PUA。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=上半年A股股民人均盈利3.91万元">上半年A股股民人均盈利3.91万元</a></h2><p>热点：12</p><p>热度：3977843</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=媒体:儿童性侵犯不应模糊成极端欺辱">媒体:儿童性侵犯不应模糊成极端欺辱</a></h2><p>热点：13</p><p>热度：3897086</p><p>详细描述：近日，“大同小学生遭霸凌事件”引起广大网友关注，媒体评论员认为，赵、晋二人的行为已涉嫌同性强奸而不是“极端羞辱”，家长们要建立这种红线意识。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=男孩河床边玩耍发现恐龙脚印">男孩河床边玩耍发现恐龙脚印</a></h2><p>热点：14</p><p>热度：3732841</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=北京一火锅店销毁2吨临期羊蝎子">北京一火锅店销毁2吨临期羊蝎子</a></h2><p>热点：15</p><p>热度：3655899</p><p>详细描述：9月25日，网传北京一火锅店处理2吨临期羊蝎子，近半数的羊蝎子被路过的居民拿走。对此，浩爷羊蝎子火锅店经理称，拦了但人太多没拦住。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=宁泽涛 第一个游进48秒的亚洲人">宁泽涛 第一个游进48秒的亚洲人</a></h2><p>热点：16</p><p>热度：3523342</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=中国台北队“亚运百金”到手">中国台北队“亚运百金”到手</a></h2><p>热点：17</p><p>热度：3456791</p><p>详细描述：台湾联合新闻网24日称，杨勇纬在男子柔道60公斤级决赛中拿到亚运会金牌，这也是中国台北队本届亚运会第一金、史上第100金。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=韩媒：尹锡悦没接受总理罢免建议案">韩媒：尹锡悦没接受总理罢免建议案</a></h2><p>热点：18</p><p>热度：3368980</p><p>详细描述：据韩国《京乡新闻》25日报道，针对韩国国会通过罢免总理议案一事，韩总统办公室放风尹锡悦没接受总理罢免建议案，其将继续履职。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=日媒：日本男乒以“屈辱比分”出局">日媒：日本男乒以“屈辱比分”出局</a></h2><p>热点：19</p><p>热度：3287588</p><p>详细描述：9月24日，杭州亚运会乒乓球男子团体四分之一决赛中，伊朗以3:0力克日本。对此，日媒称，日本队以“屈辱比分”出局，连续两届亚运会痛失奖牌。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=学而思擅自开展学科类培训被罚">学而思擅自开展学科类培训被罚</a></h2><p>热点：20</p><p>热度：3110383</p><p>详细描述：近日，无锡市学而思教育培训中心有限公司因未取得办学许可擅自开展学科类培训活动，被无锡市教育局罚款3.3万余元，处罚决定日期为2023年9月15日。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=汪顺：说我不行的人这个成绩还行吗">汪顺：说我不行的人这个成绩还行吗</a></h2><p>热点：21</p><p>热度：3014605</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=孩子扎堆玩“萝卜刀”引担忧">孩子扎堆玩“萝卜刀”引担忧</a></h2><p>热点：22</p><p>热度：2969172</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=法媒：机器人“接管”杭州亚运会">法媒：机器人“接管”杭州亚运会</a></h2><p>热点：23</p><p>热度：2834789</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=73岁香港大爷特地到杭州看孙颖莎">73岁香港大爷特地到杭州看孙颖莎</a></h2><p>热点：24</p><p>热度：2722258</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=科比女儿正式走秀">科比女儿正式走秀</a></h2><p>热点：25</p><p>热度：2689726</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=中国台北运动员夺金抱头哭泣">中国台北运动员夺金抱头哭泣</a></h2><p>热点：26</p><p>热度：2555384</p><p>详细描述：</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=事关千万人 存量房贷今起下调">事关千万人 存量房贷今起下调</a></h2><p>热点：27</p><p>热度：2437273</p><p>详细描述：在分析人士看来，存量住房贷款利率的下调，借款人可节约利息支出，将“二套转首套”及固定利率贷款纳入调整范围，能有效减轻“提前还贷”的现象。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=徐嘉余回应如何走出低谷">徐嘉余回应如何走出低谷</a></h2><p>热点：28</p><p>热度：2355248</p><p>详细描述：9月25日，杭州亚运会男子50米仰泳预赛中，徐嘉余以位列第一的成绩顺利晋级。赛后采访中，徐嘉余针对如何走出低谷表示：并不奢望谁能去理解我。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=刘学州被网暴致死案今天开庭">刘学州被网暴致死案今天开庭</a></h2><p>热点：29</p><p>热度：2263688</p><p>详细描述：2022年1月24日，因寻亲走红的男孩刘学州在寻亲成功后却因网暴选择自杀身亡。9月25日下午两点，刘学州网暴致死案在北京线下开庭。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=女生花7000元看周杰伦演唱会忘带票">女生花7000元看周杰伦演唱会忘带票</a></h2><p>热点：30</p><p>热度：2138245</p><p>详细描述：9月22日，一女子花7000元买黄牛票从无锡来山西太原看周杰伦演唱会，出发后才想起没有带票。警察赶到后和各方沟通，十几分钟就处理好了这件事。</p></div><div class="card"><h2>排行：<a href="https://cn.bing.com/search?q=外国运动员逛市场开口就对半砍价">外国运动员逛市场开口就对半砍价</a></h2><p>热点：31</p><p>热度：2039791</p><p>详细描述：杭州第19届亚运会正在如火如荼地进行，在四季青服装街区市场里，有商户惊讶地表示有伊朗运动员一开口就是对半砍，掌握了本地人的砍价技巧。</p></div>
 </body>
 
 <footer>
     <script>
-        var time = new Date(1695623847027);
+        var time = new Date(1695625595305);
         document.getElementById("time").innerHTML = time;
     </script>
 </footer>
