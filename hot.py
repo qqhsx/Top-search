@@ -83,6 +83,25 @@ xs = """
             font-size: 16px;
             margin: 8px 0;
         }
+
+        .return-home {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .return-home a {
+            font-size: 18px;
+            text-decoration: none;
+            background-color: #0074D9;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .return-home a:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -91,7 +110,9 @@ xs = """
     <br />
     <span>更新时间: <br /><span id="time"></span></span>
     <br />
-    <a href="./index.html">返回首页</a> <!-- 返回首页链接 -->
+    <div class="return-home">
+        <a href="https://qqhsx.github.io/Top-search/">返回首页</a> <!-- 修改首页链接地址 -->
+    </div>
     """ + cards_html + """
 </body>
 
