@@ -56,6 +56,7 @@ def generate_bar_chart(data):
                 <div class="label">{item[0]}</div>
                 <div class="bar-inner" style="width: {bar_width}px;"></div>
                 <div class="hotness">{item[1]}</div>
+                <div class="description">{item[2]}</div>  <!-- 添加详细描述 -->
             </div>
         """
     return chart
@@ -101,6 +102,11 @@ html_template = f"""
 
         .hotness {{
             font-size: 14px;
+        }}
+
+        .description {{
+            font-size: 12px;
+            color: #666;
         }}
     </style>
 </head>
