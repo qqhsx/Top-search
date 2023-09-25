@@ -30,59 +30,59 @@ for i in range(len(sum2)):
         pass
     del sum2[i]["img"]
     del sum2[i]["indexUrl"]
+    del sum2[i]["query"]
     del sum2[i]["rawUrl"]
     del sum2[i]["show"]
     del sum2[i]["url"]
 
-for item in sum2:
-    card = {
-        '排行': item['index'],
-        '热点': item['word'],
-        '热度': item['searches'],
-        '详细描述': item.get('tag', '')  # 使用get方法以避免缺少详细描述字段时出错
-    }
-    sum.append(card)
+for i in sum2:
+    tmp = []
+    for j in i:
+        tmp.insert(0, i[j])
+    tmp[0] = '<a href="https://cn.bing.com/search?q={}">{}</a>'.format(tmp[0], tmp[0])
+    sum.append(tmp)
 
-# 按排行排序
-sum.sort(key=lambda x: x['排行'])
+for i in sum:
+    i[1] = int(i[1]) + 2
+sum[0][1] = 1
 
-# 创建卡片式HTML页面
+def dict_to_card(data):
+    card_html = '<div class="card">'
+    card_html += '<h2>排行：{}</h2>'.format(data[0])
+    card_html += '<p>热点：{}</p>'.format(data[1])
+    card_html += '<p>热度：{}</p>'.format(data[2])
+    card_html += '<p>详细描述：{}</p>'.format(data[3])
+    card_html += '</div>'
+    return card_html
+
 cards_html = ''
 for item in sum:
-    card_html = f'''
-    <div class="card">
-        <h2>排行: {item['排行']}</h2>
-        <p>热点: {item['热点']}</p>
-        <p>热度: {item['热度']}</p>
-        <p>详细描述: {item['详细描述']}</p>
-    </div>
-    '''
+    card_html = dict_to_card(item)
     cards_html += card_html
 
-# 生成完整HTML页面
-html = f'''
+xs = """
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>热搜榜</title>
     <style>
-        .card {{
-            background-color: #ffffff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 10px;
-        }}
+        .card {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 16px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
 
-        h2 {{
+        h2 {
             font-size: 24px;
-            margin-bottom: 10px;
-        }}
+            margin: 0;
+        }
 
-        p {{
-            font-size: 18px;
-            margin-bottom: 5px;
-        }}
+        p {
+            font-size: 16px;
+            margin: 8px 0;
+        }
     </style>
 </head>
 
@@ -90,19 +90,18 @@ html = f'''
     <h1>热搜排行榜</h1>
     <br />
     <span>更新时间: <br /><span id="time"></span></span>
-    <br />
-    {cards_html}
+    <br />""" + cards_html + """
 </body>
 
 <footer>
     <script>
-        var time = new Date({int(time.time() * 1000)});
+        var time = new Date(""" + str(int(time.time() * 1000)) + """);
         document.getElementById("time").innerHTML = time;
     </script>
 </footer>
 
 </html>
-'''
+"""
 
 with open("./index.html", "w", encoding="utf-8") as xxxx:
-    xxxx.write(html)
+    xxxx.write(xs)
