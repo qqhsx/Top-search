@@ -10,7 +10,6 @@ header = {
     'Accept-Encoding': 'gzip, deflate, br',
     'Referer': 'https://top.baidu.com/board?tab=novel',
 }
-
 r = requests.get(url, headers=header)
 json_data = r.json()
 top_content_list = json_data['data']['cards'][0]['topContent']
@@ -18,95 +17,93 @@ content_list = json_data['data']['cards'][0]['content']
 
 sum2 = top_content_list + content_list
 sum = []
-
 for i in range(len(sum2)):
-    sum2[i]["index"] = i + 1  # 添加排行信息
+    del sum2[i]["appUrl"]
+    del sum2[i]["hotChange"]
     try:
-        del sum2[i]["appUrl"]
-        del sum2[i]["hotChange"]
         del sum2[i]["hotTag"]
-        del sum2[i]["hotTagImg"]
-        del sum2[i]["img"]
-        del sum2[i]["indexUrl"]
-        del sum2[i]["query"]
-        del sum2[i]["rawUrl"]
-        del sum2[i]["show"]
-        del sum2[i]["url"]
-    except KeyError:
+    except:
         pass
+    try:
+        del sum2[i]["hotTagImg"]
+    except:
+        pass
+    del sum2[i]["img"]
+    del sum2[i]["indexUrl"]
+    del sum2[i]["query"]
+    del sum2[i]["rawUrl"]
+    del sum2[i]["show"]
+    del sum2[i]["url"]
 
 for item in sum2:
-    sum.append([item['index'], item['query'], item['hot'], item['detail']])
+    card = {
+        '排行': item['index'],
+        '热点': item['query'],
+        '热度': item['hot'],
+        '详细描述': item['detail']
+    }
+    sum.append(card)
 
-sum.sort(key=lambda x: x[0])
+# 按排行排序
+sum.sort(key=lambda x: x['排行'])
 
-def generate_cards(data):
-    cards = ""
-    for item in data:
-        card = f"""
-            <div class="card">
-                <div class="rank">排行: {item[0]}</div>
-                <div class="hotspot">热点: {item[1]}</div>
-                <div class="heat">热度: {item[2]}</div>
-                <div class="description">详细描述: {item[3]}</div>
-            </div>
-        """
-        cards += card
-    return cards
+# 创建卡片式HTML页面
+cards_html = ''
+for item in sum:
+    card_html = f'''
+    <div class="card">
+        <h2>排行: {item['排行']}</h2>
+        <p>热点: {item['热点']}</p>
+        <p>热度: {item['热度']}</p>
+        <p>详细描述: {item['详细描述']}</p>
+    </div>
+    '''
+    cards_html += card_html
 
-html_content = f"""
+# 生成完整HTML页面
+html = f'''
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>热搜榜</title>
     <style>
-        body {{
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-        }}
-
         .card {{
-            background-color: #fff;
+            background-color: #ffffff;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
             padding: 20px;
-            margin: 10px 0;
+            margin: 10px;
         }}
 
-        .rank {{
-            font-weight: bold;
+        h2 {{
+            font-size: 24px;
+            margin-bottom: 10px;
         }}
 
-        .hotspot {{
-            color: #FF5733;
-        }}
-
-        .heat {{
-            color: #FFC300;
-        }}
-
-        .description {{
-            font-size: 14px;
+        p {{
+            font-size: 18px;
+            margin-bottom: 5px;
         }}
     </style>
 </head>
+
 <body>
     <h1>热搜排行榜</h1>
-    <br>
-    <span>更新时间: <br><span id="time"></span></span>
-    <br>
-    {generate_cards(sum)}
+    <br />
+    <span>更新时间: <br /><span id="time"></span></span>
+    <br />
+    {cards_html}
 </body>
+
 <footer>
     <script>
         var time = new Date({int(time.time() * 1000)});
         document.getElementById("time").innerHTML = time;
     </script>
 </footer>
-</html>
-"""
 
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
+</html>
+'''
+
+with open("./index.html", "w", encoding="utf-8") as xxxx:
+    xxxx.write(html)
