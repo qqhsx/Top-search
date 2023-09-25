@@ -10,6 +10,7 @@ header = {
     'Accept-Encoding': 'gzip, deflate, br',
     'Referer': 'https://top.baidu.com/board?tab=novel',
 }
+
 r = requests.get(url, headers=header)
 json_data = r.json()
 top_content_list = json_data['data']['cards'][0]['topContent']
@@ -17,119 +18,95 @@ content_list = json_data['data']['cards'][0]['content']
 
 sum2 = top_content_list + content_list
 sum = []
+
 for i in range(len(sum2)):
-    del sum2[i]["appUrl"]
-    del sum2[i]["hotChange"]
+    sum2[i]["index"] = i + 1  # 添加排行信息
     try:
+        del sum2[i]["appUrl"]
+        del sum2[i]["hotChange"]
         del sum2[i]["hotTag"]
-    except:
-        pass
-    try:
         del sum2[i]["hotTagImg"]
-    except:
+        del sum2[i]["img"]
+        del sum2[i]["indexUrl"]
+        del sum2[i]["query"]
+        del sum2[i]["rawUrl"]
+        del sum2[i]["show"]
+        del sum2[i]["url"]
+    except KeyError:
         pass
-    del sum2[i]["img"]
-    del sum2[i]["indexUrl"]
-    del sum2[i]["query"]
-    del sum2[i]["rawUrl"]
-    del sum2[i]["show"]
-    del sum2[i]["url"]
 
-for i in sum2:
-    tmp = []
-    for j in i:
-        tmp.insert(0, i[j])
-    tmp[0] = '<a href="https://cn.bing.com/search?q={}">{}</a>'.format(tmp[0], tmp[0])
-    sum.append(tmp)
+for item in sum2:
+    sum.append([item['index'], item['query'], item['hot'], item['detail']])
 
-for i in sum:
-    i[1] = int(i[1]) + 2
-sum[0][1] = 1
+sum.sort(key=lambda x: x[0])
 
-
-def generate_bar_chart(data):
-    chart = ""
+def generate_cards(data):
+    cards = ""
     for item in data:
-        bar_width = item[1] * 10  # 根据热度设置长条的宽度
-        chart += f"""
-            <div class="bar">
-                <div class="label">{item[0]}</div>
-                <div class="bar-inner" style="width: {bar_width}px;"></div>
-                <div class="hotness">{item[1]}</div>
-                <div class="description">{item[2]}</div>  <!-- 添加详细描述 -->
+        card = f"""
+            <div class="card">
+                <div class="rank">排行: {item[0]}</div>
+                <div class="hotspot">热点: {item[1]}</div>
+                <div class="heat">热度: {item[2]}</div>
+                <div class="description">详细描述: {item[3]}</div>
             </div>
         """
-    return chart
+        cards += card
+    return cards
 
-
-html_template = f"""
+html_content = f"""
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>热搜榜</title>
     <style>
         body {{
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #f5f5f5;
+            margin: 0;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }}
 
-        .bar {{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
+        .card {{
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
+            padding: 20px;
+            margin: 10px 0;
         }}
 
-        .label {{
-            font-size: 14px;
+        .rank {{
             font-weight: bold;
         }}
 
-        .bar-inner {{
-            background-color: #007BFF;
-            height: 20px;
+        .hotspot {{
+            color: #FF5733;
         }}
 
-        .hotness {{
-            font-size: 14px;
+        .heat {{
+            color: #FFC300;
         }}
 
         .description {{
-            font-size: 12px;
-            color: #666;
+            font-size: 14px;
         }}
     </style>
 </head>
-
 <body>
     <h1>热搜排行榜</h1>
-    <br />
-    <span>更新时间: <br /><span id="time"></span></span>
-    <br />
-    <div>
-        {generate_bar_chart(sum)}
-    </div>
+    <br>
+    <span>更新时间: <br><span id="time"></span></span>
+    <br>
+    {generate_cards(sum)}
 </body>
-
 <footer>
     <script>
         var time = new Date({int(time.time() * 1000)});
         document.getElementById("time").innerHTML = time;
     </script>
 </footer>
-
 </html>
 """
 
-with open("./index.html", "w", encoding="utf-8") as file:
-    file.write(html_template)
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
