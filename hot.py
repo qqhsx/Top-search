@@ -47,18 +47,18 @@ for i in sum:
 sum[0][1] = 1
 
 
-def generate_cards(data):
-    cards = ""
+def generate_bar_chart(data):
+    chart = ""
     for item in data:
-        card = f"""
-            <div class="card">
-                <h2>{item[0]}</h2>
-                <p>热度: {item[1]}</p>
-                <p>{item[3]}</p> <!-- 添加详细描述 -->
+        bar_width = item[1] * 10  # 根据热度设置长条的宽度
+        chart += f"""
+            <div class="bar">
+                <div class="label">{item[0]}</div>
+                <div class="bar-inner" style="width: {bar_width}px;"></div>
+                <div class="hotness">{item[1]}</div>
             </div>
         """
-        cards += card
-    return cards
+    return chart
 
 
 html_template = f"""
@@ -77,24 +77,29 @@ html_template = f"""
             align-items: center;
         }}
 
-        .card {{
+        .bar {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
             background-color: #ffffff;
             border: 1px solid #e0e0e0;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 10px;
-            width: 300px;
-            text-align: left;
         }}
 
-        h2 {{
-            font-size: 18px;
+        .label {{
+            font-size: 14px;
             font-weight: bold;
-            margin-bottom: 10px;
         }}
 
-        p {{
+        .bar-inner {{
+            background-color: #007BFF;
+            height: 20px;
+        }}
+
+        .hotness {{
             font-size: 14px;
         }}
     </style>
@@ -106,7 +111,7 @@ html_template = f"""
     <span>更新时间: <br /><span id="time"></span></span>
     <br />
     <div>
-        {generate_cards(sum)}
+        {generate_bar_chart(sum)}
     </div>
 </body>
 
