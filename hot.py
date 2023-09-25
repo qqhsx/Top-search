@@ -48,8 +48,8 @@ sum[0][1] = 1
 
 def dict_to_card(data):
     card_html = '<div class="card">'
-    card_html += '<h2>热点：{}</h2>'.format(data[1])  # 对调了“热点”和“排行”位置
-    card_html += '<p>排行：{}</p>'.format(data[0])  # 对调了“热点”和“排行”位置
+    card_html += '<h2>排行：{}</h2>'.format(data[0])  # 对调了“热点”和“排行”位置
+    card_html += '<p>热点：{}</p>'.format(data[1])  # 对调了“热点”和“排行”位置
     card_html += '<p>热度：{}</p>'.format(data[2])
     card_html += '<p>详细描述：{}</p>'.format(data[3])
     card_html += '</div>'
