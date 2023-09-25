@@ -47,63 +47,55 @@ for i in sum:
 sum[0][1] = 1
 
 
-def dict_to_table(ks, vs):
-    th = ''
-    for name in ks:
-        th = th + '<th>' + name + '</th>'
-    trth = '<tr>' + th + '</tr>'
-
-    trtd = ''
-    for tds in vs:
-        tdss = ''
-        for td in tds:
-            tdss = tdss + '<td>' + str(td) + '</td>'
-        tdss = '<tr>' + tdss + '</tr>'
-        trtd = trtd + tdss
-
-    return '<table>' + trth + trtd + '</table>'
+def generate_cards(data):
+    cards = ""
+    for item in data:
+        card = f"""
+            <div class="card">
+                <h2>{item[0]}</h2>
+                <p>热度: {item[1]}</p>
+                <p>{item[2]}</p>
+            </div>
+        """
+        cards += card
+    return cards
 
 
-for i in range(len(sum)):
-    pass
-    tmp = sum[i][1]
-    sum[i][1] = sum[i][0]
-    sum[i][0] = tmp
-
-sum.sort(key=lambda x: x[0])
-sum = sum[0:-1]
-sx = dict_to_table(["排行", "热点", "热度", "详细描述"], sum).replace("\n", "").replace("  ", " ")
-xs = """
+html_template = f"""
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>热搜榜</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        body {{
             font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        th,
-        td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #f2f2f2;
-        }
-
-        th {
-            background-color: #f5f5f5;
-            color: #333333;
-            font-weight: bold;
-        }
-
-        tr:hover {
             background-color: #f2f2f2;
-        }
+            padding: 20px;
+        }}
+
+        .card {{
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            display: inline-block;
+            vertical-align: top;
+            text-align: left;
+        }}
+
+        h2 {{
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }}
+
+        p {{
+            font-size: 14px;
+        }}
     </style>
 </head>
 
@@ -111,12 +103,15 @@ xs = """
     <h1>热搜排行榜</h1>
     <br />
     <span>更新时间: <br /><span id="time"></span></span>
-    <br />""" + sx + """
+    <br />
+    <div>
+        {generate_cards(sum)}
+    </div>
 </body>
 
 <footer>
     <script>
-        var time = new Date(""" + str(int(time.time() * 1000)) + """);
+        var time = new Date({int(time.time() * 1000)});
         document.getElementById("time").innerHTML = time;
     </script>
 </footer>
@@ -124,5 +119,5 @@ xs = """
 </html>
 """
 
-with open("./index.html", "w", encoding="utf-8") as xxxx:
-    xxxx.write(xs)
+with open("./index.html", "w", encoding="utf-8") as file:
+    file.write(html_template)
