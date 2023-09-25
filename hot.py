@@ -30,7 +30,6 @@ for i in range(len(sum2)):
         pass
     del sum2[i]["img"]
     del sum2[i]["indexUrl"]
-    del sum2[i]["query"]
     del sum2[i]["rawUrl"]
     del sum2[i]["show"]
     del sum2[i]["url"]
@@ -38,9 +37,9 @@ for i in range(len(sum2)):
 for item in sum2:
     card = {
         '排行': item['index'],
-        '热点': item['query'],
-        '热度': item['hot'],
-        '详细描述': item['detail']
+        '热点': item['word'],
+        '热度': item['searches'],
+        '详细描述': item.get('tag', '')  # 使用get方法以避免缺少详细描述字段时出错
     }
     sum.append(card)
 
