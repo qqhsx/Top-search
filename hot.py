@@ -54,7 +54,7 @@ for i in sum:
 sum[0][1] = 1
 
 markdown_text = "# 今日热点\n\n"
-markdown_text += "更新时间: {}\n\n".format(time.strftime('%Y-%m-%d %H:%M:%S'))
+markdown_text += "更新时间（UTC）: {}\n\n".format(time.strftime('%Y-%m-%d %H:%M:%S'))
 
 for item in sum:
     # 使用去除链接中无用空格的函数处理链接
