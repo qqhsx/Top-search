@@ -1,5 +1,14 @@
+import os
 import requests
 import time
+import re
+from datetime import datetime, timedelta
+
+# 定义去除链接中无用空格的函数
+def remove_whitespace_in_links(text):
+    # 使用正则表达式查找并替换链接中的无用空格
+    text = re.sub(r'(\[[^\]]+\])\(([^)]+?)\s+([^)]+?)\)', r'\1(\2\3)', text)
+    return text
 
 url = 'https://top.baidu.com/api/board?platform=wise&tab=realtime'
 header = {
@@ -39,92 +48,36 @@ for i in sum2:
     tmp = []
     for j in i:
         tmp.insert(0, i[j])
-    tmp[0] = '<a href="https://cn.bing.com/search?q={}">{}</a>'.format(tmp[0], tmp[0])
+    tmp[0] = '[{}]({})'.format(tmp[0], 'https://cn.bing.com/search?q=' + tmp[0])
     sum.append(tmp)
 
 for i in sum:
     i[1] = int(i[1]) + 2
 sum[0][1] = 1
 
-def dict_to_card(data):
-    card_html = '<div class="card">'
-    card_html += '<h2>热点：{}</h2>'.format(data[0])  # 对调了“热点”和“排行”位置
-    card_html += '<p>排行：{}</p>'.format(data[1])  # 对调了“热点”和“排行”位置
-    card_html += '<p>热度：{}</p>'.format(data[2])
-    card_html += '<p>详细描述：{}</p>'.format(data[3])
-    card_html += '</div>'
-    return card_html
+# 计算当前时间与UTC时间的时差（北京时间比UTC时间晚8小时）
+utc_offset = timedelta(hours=8)
+current_utc_time = datetime.utcnow() + utc_offset
 
-cards_html = ''
+# 格式化为北京时间的字符串
+beijing_time = current_utc_time.strftime('%Y-%m-%d %H:%M:%S')
+
+markdown_text = "---\ntitle: Top-search 热搜排行榜\n---\n\n# 今日热点\n\n"
+markdown_text += "更新时间: {}\n\n".format(beijing_time)
+
 for item in sum:
-    card_html = dict_to_card(item)
-    cards_html += card_html
+    # 使用去除链接中无用空格的函数处理链接
+    item[0] = remove_whitespace_in_links(item[0])
+    
+    markdown_text += "## 热点：{}\n".format(item[0])
+    markdown_text += "排行：{}\n".format(item[1])
+    markdown_text += "热度：{}\n".format(item[2])
+    markdown_text += "详细描述：{}\n\n".format(item[3])
 
-xs = """
-<!DOCTYPE html>
-<html>
+# 保存Markdown文档到指定目录
+save_dir = './source/Top_search'
+os.makedirs(save_dir, exist_ok=True)
+file_path = os.path.join(save_dir, 'index.md')
 
-<head>
-    <title>热搜榜</title>
-    <style>
-        .card {
-            border: 1px solid #ccc;
-            padding: 16px;
-            margin: 16px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        }
-
-        h2 {
-            font-size: 24px;
-            margin: 0;
-        }
-
-        p {
-            font-size: 16px;
-            margin: 8px 0;
-        }
-
-        .return-home {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .return-home a {
-            font-size: 18px;
-            text-decoration: none;
-            background-color: #0074D9;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .return-home a:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-
-<body>
-    <h1>热搜排行榜</h1>
-    <br />
-    <span>更新时间: <br /><span id="time"></span></span>
-    <br />
-    <div class="return-home">
-        <a href="../">返回首页</a> <!-- 使用相对路径返回首页 -->
-    </div>
-    """ + cards_html + """
-</body>
-
-<footer>
-    <script>
-        var time = new Date(""" + str(int(time.time() * 1000)) + """);
-        document.getElementById("time").innerHTML = time;
-    </script>
-</footer>
-
-</html>
-"""
-
-with open("./index.html", "w", encoding="utf-8") as xxxx:
-    xxxx.write(xs)
+with open(file_path, "w", encoding="utf-8") as markdown_file:
+    markdown_file.write(markdown_text)
