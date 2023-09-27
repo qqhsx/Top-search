@@ -1,8 +1,6 @@
-import os
 import requests
 import time
 import re
-from datetime import datetime, timedelta
 
 # 定义去除链接中无用空格的函数
 def remove_whitespace_in_links(text):
@@ -55,15 +53,8 @@ for i in sum:
     i[1] = int(i[1]) + 2
 sum[0][1] = 1
 
-# 计算当前时间与UTC时间的时差（北京时间比UTC时间晚8小时）
-utc_offset = timedelta(hours=8)
-current_utc_time = datetime.utcnow() + utc_offset
-
-# 格式化为北京时间的字符串
-beijing_time = current_utc_time.strftime('%Y-%m-%d %H:%M:%S')
-
-markdown_text = "---\ntitle: Top-search 热搜排行榜\n---\n\n# 今日热点\n\n"
-markdown_text += "更新时间: {}\n\n".format(beijing_time)
+markdown_text = "# 今日热点\n\n"
+markdown_text += "更新时间: {}\n\n".format(time.strftime('%Y-%m-%d %H:%M:%S'))
 
 for item in sum:
     # 使用去除链接中无用空格的函数处理链接
@@ -74,10 +65,5 @@ for item in sum:
     markdown_text += "热度：{}\n".format(item[2])
     markdown_text += "详细描述：{}\n\n".format(item[3])
 
-# 保存Markdown文档到指定目录
-save_dir = './source/Top_search'
-os.makedirs(save_dir, exist_ok=True)
-file_path = os.path.join(save_dir, 'index.md')
-
-with open(file_path, "w", encoding="utf-8") as markdown_file:
+with open("./index.md", "w", encoding="utf-8") as markdown_file:
     markdown_file.write(markdown_text)
