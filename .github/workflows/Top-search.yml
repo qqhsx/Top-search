@@ -14,18 +14,15 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create target directory
-        run: mkdir -p ../qqhsx/aa/
+        run: mkdir -p aa/
 
       - name: Copy index.md to qqhsx/aa
-        run: cp index.md ../qqhsx/aa/index.md
+        run: cp index.md aa/index.md
 
       - name: Commit and push
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }} # 使用 GitHub Secrets 中的 PAT
         run: |
           git config --global user.email "actions@example.com"
           git config --global user.name "GitHub Actions"
-          git add ../qqhsx/aa/index.md
+          git add aa/index.md
           git commit -m "Update index.md"
-          git remote add target_repo https://github.com/qqhsx/aa.git
-          git push target_repo main
+          git push origin main
