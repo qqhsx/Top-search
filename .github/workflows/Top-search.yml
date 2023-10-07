@@ -18,6 +18,7 @@ jobs:
 
     - name: Copy Index File
       run: |
+        mkdir -p ../aa  # 创建目标目录，如果不存在
         cp index.md ../aa/
       working-directory: ./qqhsx/Top-search  # 源仓库路径
 
