@@ -18,15 +18,17 @@ jobs:
 
     - name: Copy Index File
       run: |
-        mkdir -p ../aa  # 创建目标目录，如果不存在
-        cp index.md ../aa/
+        cp index.md $GITHUB_WORKSPACE/aa/
       working-directory: .
 
     - name: Commit and Push
       run: |
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
-        git add ../aa/index.md
+        git clone https://github.com/qqhsx/aa.git
+        cd aa
+        mv ../index.md ./
+        git add index.md
         git commit -m "Copy index.md"
         git push
       working-directory: .
