@@ -13,13 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Copy index.md to qqhsx/aa
-        run: cp index.md ../qqhsx/aa/index.md
-
-      - name: Commit and push to qqhsx/aa
+      - name: Clone target repository
         run: |
-          git config --global user.email "actions@example.com"
-          git config --global user.name "GitHub Actions"
-          git add ../qqhsx/aa/index.md
+          git clone https://github.com/qqhsx/aa.git
+          cp index.md aa/index.md
+          cd aa
+          git config --local user.email "actions@example.com"
+          git config --local user.name "GitHub Actions"
+          git add index.md
           git commit -m "Update index.md"
-          git push https://github.com/qqhsx/aa.git main
+          git push origin main
