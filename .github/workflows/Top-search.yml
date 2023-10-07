@@ -1,35 +1,32 @@
-name: Top-search
+name: Copy Index File
+
 on:
   push:
     branches:
-      - main
-  schedule:
-    - cron: "* * * * *"
+      - main  # 触发分支，可以根据需要更改
 
 jobs:
-  run-python-script:
+  copy_file:
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkoutss
-        uses: actions/checkout@v2
+    - name: Checkout Top-search Repository
+      uses: actions/checkout@v2
+      with:
+        repository: qqhsx/Top-search
+        ref: main  # 源仓库分支
 
-      - name: instpython3
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11.1'
-      - name: Commit files
-        run: |
-          git config --local user.email "378600950@qq.com"
-          git config --local user.name "qqhsx"
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git pull --rebase
-          pip3 install requests
-          python hot.py
-          git add .
-          git commit --allow-empty -m "爬取热点"
-          git push -f
+    - name: Copy Index File
+      run: |
+        cp index.md ../aa/
+      working-directory: ./qqhsx/Top-search  # 源仓库路径
 
-          # Add a remote for the other repository and push to it
-          git remote add repository_aa https://github.com/qqhsx/aa.git
+    - name: Commit and Push
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add ../aa/index.md
+        git commit -m "Copy index.md"
+        git push
+      working-directory: ./qqhsx/Top-search  # 源仓库路径
 
-          git push repository_aa main
