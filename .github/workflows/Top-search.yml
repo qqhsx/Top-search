@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Copy index.md
+      - name: Copy index.md to qqhsx/aa
         run: cp index.md ../qqhsx/aa/index.md
 
       - name: Commit and push
