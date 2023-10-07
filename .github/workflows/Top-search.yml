@@ -1,34 +1,25 @@
-name: Copy Index File
+name: Push index.md to qqhsx/aa
 
 on:
   push:
     branches:
-      - main  # 触发分支，可以根据需要更改
+      - main # 或者你要监控的分支，根据实际情况进行调整
 
 jobs:
-  copy_file:
+  push:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Top-search Repository
-      uses: actions/checkout@v2
-      with:
-        repository: qqhsx/Top-search
-        ref: main  # 源仓库分支
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Copy Index File
-      run: |
-        cp index.md $GITHUB_WORKSPACE/../aa/
-      working-directory: .
+      - name: Copy index.md
+        run: cp index.md ../qqhsx/aa/index.md
 
-    - name: Commit and Push
-      run: |
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
-        git clone https://github.com/qqhsx/aa.git
-        cd aa
-        mv ../index.md ./
-        git add index.md
-        git commit -m "Copy index.md"
-        git push
-      working-directory: .
+      - name: Commit and push
+        run: |
+          git config --global user.email "actions@example.com"
+          git config --global user.name "GitHub Actions"
+          git add ../qqhsx/aa/index.md
+          git commit -m "Update index.md"
+          git push
