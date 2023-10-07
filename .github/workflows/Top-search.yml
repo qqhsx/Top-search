@@ -18,7 +18,7 @@ jobs:
 
     - name: Copy Index File
       run: |
-        cp index.md $GITHUB_WORKSPACE/aa/
+        cp index.md $GITHUB_WORKSPACE/../aa/
       working-directory: .
 
     - name: Commit and Push
