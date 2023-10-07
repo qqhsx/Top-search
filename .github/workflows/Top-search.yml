@@ -13,6 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Create target directory
+        run: mkdir -p ../qqhsx/aa/
+
       - name: Copy index.md to qqhsx/aa
         run: cp index.md ../qqhsx/aa/index.md
 
