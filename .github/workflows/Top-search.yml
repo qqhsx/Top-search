@@ -28,3 +28,7 @@ jobs:
           git add .
           git commit --allow-empty -m "爬取热点"
           git push -f
+
+          # Add a remote for the other repository and push to it
+          git remote add repository_aa https://github.com/<你的用户名>/aa.git
+          git push repository_aa main
