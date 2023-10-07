@@ -20,7 +20,7 @@ jobs:
       run: |
         mkdir -p ../aa  # 创建目标目录，如果不存在
         cp index.md ../aa/
-      working-directory: ./qqhsx/Top-search  # 源仓库路径
+      working-directory: .
 
     - name: Commit and Push
       run: |
@@ -29,5 +29,4 @@ jobs:
         git add ../aa/index.md
         git commit -m "Copy index.md"
         git push
-      working-directory: ./qqhsx/Top-search  # 源仓库路径
-
+      working-directory: .
