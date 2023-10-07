@@ -13,13 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Clone target repository
+      - name: Upload index.md to qqhsx/aa
         run: |
-          git clone https://github.com/qqhsx/aa.git
-          cp index.md aa/index.md
-          cd aa
-          git config --local user.email "actions@example.com"
-          git config --local user.name "GitHub Actions"
-          git add index.md
-          git commit -m "Update index.md"
-          git push origin main
+          curl -X PUT "https://api.github.com/repos/qqhsx/aa/contents/index.md" \
+          -H "Authorization: token ${{ secrets.GH_PAT }}" \
+          -d '{
+            "message": "Update index.md",
+            "content": "'"$(base64 -w0 index.md)"'"
+          }'
+
